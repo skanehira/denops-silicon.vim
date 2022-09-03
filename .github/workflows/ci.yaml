@@ -12,7 +12,7 @@ jobs:
   lint:
     strategy:
       matrix:
-        deno-version: [v1.x]
+        deno_version: ["v1.24.3"]
         os: [ubuntu-latest]
     name: deno lint
     runs-on: ${{ matrix.os }}
@@ -27,11 +27,11 @@ jobs:
     strategy:
       matrix:
         runner:
-          - windows-latest
-          - macos-latest
-          - ubuntu-latest
+          - windows-2022
+          - macos-12
+          - ubuntu-22.04
         version:
-          - "1.x"
+          - "v1.24.3"
         host_version:
           - vim: "v8.2.3452"
             nvim: "v0.6.0"
@@ -69,6 +69,13 @@ jobs:
         run: |
           git clone https://github.com/vim-denops/denops.vim $HOME/denops.vim
           echo "::set-output name=path::$HOME/denops.vim"
+      - name: Install dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt install expat
+          sudo apt install libxml2-dev
+          sudo apt install pkg-config libasound2-dev libssl-dev cmake libfreetype6-dev libexpat1-dev libxcb-composite0-dev
       - name: Test
         run: |
           make test
