@@ -15,5 +15,28 @@ Please refer silicon's [dependencies](https://github.com/Aloxaf/silicon#dependen
 :'<,'>Silicon
 ```
 
+## Options
+The following options can customize the image.
+
+```vim
+let g:silicon_options = {
+      \  'font': 'Cica',
+      \  'no_line_number': v:false,
+      \  'no_round_corner': v:false,
+      \  'no_window_controls': v:false,
+      \  'background_color': '#aaaaff',
+      \  'line_offset': 1,
+      \  'line_pad': 2,
+      \  'pad_horiz': 80,
+      \  'pad_vert': 100,
+      \  'shadow_blur_radius': 0,
+      \  'shadow_color': '#555555',
+      \  'shadow_offset_x': 0,
+      \  'shadow_offset_y': 0,
+      \  'tab_width': 4,
+      \  'theme': 'Solarized (dark)',
+      \ }
+```
+
 ## Author
 skanehira
