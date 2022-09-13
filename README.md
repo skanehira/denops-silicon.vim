@@ -5,11 +5,8 @@ A plugin to generate image from source code.
 
 ## Requirements
 - [denops.vim](https://github.com/vim-denops/denops.vim)
-- Deno v1.24.3 or earlier 
+- Deno v1.25.0 or later 
 - xclip(only Linux)
-
-## Known issues
-- Deno `v1.25.0` or later is not work
 
 ## Dependencies
 Please refer silicon's [dependencies](https://github.com/Aloxaf/silicon#dependencies)

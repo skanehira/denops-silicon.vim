@@ -1,6 +1,6 @@
 *silicon.txt*	generate images from source code
 
-Version : 0.0.1
+Version : 0.0.2
 Author  : skanehira <sho19921005@gmail.com>
 License : MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
