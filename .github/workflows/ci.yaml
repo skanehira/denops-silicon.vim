@@ -12,7 +12,7 @@ jobs:
   lint:
     strategy:
       matrix:
-        deno_version: ["v1.24.3"]
+        deno_version: [v1.x]
         os: [ubuntu-latest]
     name: deno lint
     runs-on: ${{ matrix.os }}
@@ -31,7 +31,7 @@ jobs:
           - macos-12
           - ubuntu-22.04
         version:
-          - "v1.24.3"
+          - "v1.x"
         host_version:
           - vim: "v8.2.3452"
             nvim: "v0.6.0"
