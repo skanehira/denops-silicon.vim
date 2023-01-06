@@ -82,5 +82,5 @@ jobs:
         env:
           DENOPS_TEST_VIM: ${{ steps.vim.outputs.executable_path }}
           DENOPS_TEST_NVIM: ${{ steps.nvim.outputs.executable_path }}
-          DENOPS_PATH: ${{ steps.denops.outputs.path }}
+          DENOPS_TEST_DENOPS_PATH: ${{ steps.denops.outputs.path }}
         timeout-minutes: 5

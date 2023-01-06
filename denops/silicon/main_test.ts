@@ -1,5 +1,6 @@
 import { generateImage } from "./main.ts";
-import { assertEquals, Denops, test } from "./deps.ts";
+import { Denops } from "./deps.ts";
+import { assertEquals, test } from "./deps_test.ts";
 
 function assertImage(data: Uint8Array) {
   const header = data.slice(0, 8);
