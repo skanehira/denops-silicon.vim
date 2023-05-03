@@ -1,11 +1,10 @@
-import { readAll } from "https://deno.land/std@0.153.0/streams/conversion.ts";
-import { Option } from "https://deno.land/x/silicon@v0.0.1/mod.ts";
 import {
   clippy,
   Denops,
   ensureString,
   isNumber,
   mapping,
+  readAll,
   silicon,
   vars,
 } from "./deps.ts";
@@ -19,7 +18,11 @@ export async function generateImage(
   try {
     const code = await denops.call("getline", start, end) as string[];
     const ft = await denops.eval("&ft") as string;
-    const opts = await vars.g.get(denops, "silicon_options", {}) as Option;
+    const opts = await vars.g.get(
+      denops,
+      "silicon_options",
+      {},
+    ) as silicon.Option;
     const r = await silicon.generateImage(code.join("\n"), ft, opts);
 
     if (path) {
