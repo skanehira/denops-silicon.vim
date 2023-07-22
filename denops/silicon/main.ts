@@ -1,7 +1,8 @@
 import {
   clippy,
   Denops,
-  ensureString,
+  ensure,
+  is,
   isNumber,
   mapping,
   readAll,
@@ -26,7 +27,7 @@ export async function generateImage(
     const r = await silicon.generateImage(code.join("\n"), ft, opts);
 
     if (path) {
-      await Deno.writeFile(ensureString(path), await readAll(r));
+      await Deno.writeFile(ensure(path, is.String), await readAll(r));
       return;
     }
     await clippy.write_image(r);
