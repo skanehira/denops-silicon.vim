@@ -4,7 +4,6 @@ import {
   ensure,
   is,
   isNumber,
-  mapping,
   readAll,
   silicon,
   vars,
@@ -37,23 +36,7 @@ export async function generateImage(
   }
 }
 
-export async function main(denops: Denops): Promise<void> {
-  await denops.cmd(
-    `command! -complete=file -range -nargs=? Silicon call denops#notify("${denops.name}", "generateImage", [<line1>, <line2>, <f-args>])`,
-  );
-
-  await mapping.map(denops, "<Plug>(silicon-generate)", ":Silicon<CR>", {
-    mode: "x",
-    noremap: true,
-    silent: true,
-  });
-
-  await mapping.map(denops, "<Plug>(silicon-generate)", ":1,$Silicon<CR>", {
-    mode: "n",
-    noremap: true,
-    silent: true,
-  });
-
+export function main(denops: Denops): void {
   denops.dispatcher = {
     async generateImage(
       start: unknown,
