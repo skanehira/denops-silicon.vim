@@ -7,12 +7,11 @@ import {
   is,
   opts,
   Predicate,
-  readAll,
   silicon,
   vars,
 } from "./deps.ts";
 
-const isPartialOptions: Predicate<silicon.Option> = is.ObjectOf({
+const isPartialOptions: Predicate<Partial<silicon.Options>> = is.ObjectOf({
   no_line_number: is.OptionalOf(is.Boolean),
   no_round_corner: is.OptionalOf(is.Boolean),
   no_window_controls: is.OptionalOf(is.Boolean),
@@ -45,12 +44,12 @@ export async function generateImage(
     ]);
     assert(options, isPartialOptions);
 
-    const r = await silicon.generateImage(code.join("\n"), ft, options);
+    const data = silicon.generate(code.join("\n"), ft, options);
     if (path) {
-      await Deno.writeFile(path, await readAll(r));
+      await Deno.writeFile(path, data);
       return;
     }
-    await clippy.write_image(r);
+    await clippy.writeImage(data);
     await denops.cmd("echo '[silicon] successfully generated'");
   } catch (e) {
     console.error(e.message);
