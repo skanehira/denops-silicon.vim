@@ -1,69 +1,71 @@
 import {
+  assert,
+  batch,
   clippy,
   Denops,
-  ensure,
+  fn,
   is,
-  isNumber,
-  mapping,
-  readAll,
+  opts,
+  Predicate,
   silicon,
   vars,
 } from "./deps.ts";
+
+const isPartialOptions: Predicate<Partial<silicon.Options>> = is.ObjectOf({
+  no_line_number: is.OptionalOf(is.Boolean),
+  no_round_corner: is.OptionalOf(is.Boolean),
+  no_window_controls: is.OptionalOf(is.Boolean),
+  background_color: is.OptionalOf(is.String),
+  font: is.OptionalOf(is.String),
+  highlight_lines: is.OptionalOf(is.String),
+  line_offset: is.OptionalOf(is.Number),
+  line_pad: is.OptionalOf(is.Number),
+  pad_horiz: is.OptionalOf(is.Number),
+  pad_vert: is.OptionalOf(is.Number),
+  shadow_blur_radius: is.OptionalOf(is.Number),
+  shadow_color: is.OptionalOf(is.String),
+  shadow_offset_x: is.OptionalOf(is.Number),
+  shadow_offset_y: is.OptionalOf(is.Number),
+  tab_width: is.OptionalOf(is.Number),
+  theme: is.OptionalOf(is.String),
+});
 
 export async function generateImage(
   denops: Denops,
   start: number,
   end: number,
-  path?: unknown,
+  path?: string,
 ): Promise<void> {
   try {
-    const code = await denops.call("getline", start, end) as string[];
-    const ft = await denops.eval("&ft") as string;
-    const opts = await vars.g.get(
-      denops,
-      "silicon_options",
-      {},
-    ) as silicon.Option;
-    const r = await silicon.generateImage(code.join("\n"), ft, opts);
+    const [code, ft, options] = await batch.collect(denops, (denops) => [
+      fn.getline(denops, start, end),
+      opts.filetype.get(denops),
+      vars.g.get(denops, "silicon_options", {}),
+    ]);
+    assert(options, isPartialOptions);
 
+    const data = silicon.generate(code.join("\n"), ft, options);
     if (path) {
-      await Deno.writeFile(ensure(path, is.String), await readAll(r));
+      await Deno.writeFile(path, data);
       return;
     }
-    await clippy.write_image(r);
+    await clippy.writeImage(data);
     await denops.cmd("echo '[silicon] successfully generated'");
   } catch (e) {
     console.error(e.message);
   }
 }
 
-export async function main(denops: Denops): Promise<void> {
-  await denops.cmd(
-    `command! -complete=file -range -nargs=? Silicon call denops#notify("${denops.name}", "generateImage", [<line1>, <line2>, <f-args>])`,
-  );
-
-  await mapping.map(denops, "<Plug>(silicon-generate)", ":Silicon<CR>", {
-    mode: "x",
-    noremap: true,
-    silent: true,
-  });
-
-  await mapping.map(denops, "<Plug>(silicon-generate)", ":1,$Silicon<CR>", {
-    mode: "n",
-    noremap: true,
-    silent: true,
-  });
-
+export function main(denops: Denops): void {
   denops.dispatcher = {
     async generateImage(
       start: unknown,
       end: unknown,
       path?: unknown,
     ): Promise<void> {
-      if (!isNumber(start) || !isNumber(end)) {
-        throw new Error(`start or end is not a number`);
-      }
-
+      assert(start, is.Number);
+      assert(end, is.Number);
+      assert(path, is.OptionalOf(is.String));
       await generateImage(denops, start, end, path);
     },
   };
