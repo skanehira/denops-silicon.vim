@@ -1,5 +1,5 @@
 export * from "https://deno.land/x/denops_std@v6.4.0/mod.ts";
-export * from "https://deno.land/x/unknownutil@v3.17.3/mod.ts";
+export * from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
 export * as batch from "https://deno.land/x/denops_std@v6.4.0/batch/mod.ts";
 export * as fn from "https://deno.land/x/denops_std@v6.4.0/function/mod.ts";
 export * as opts from "https://deno.land/x/denops_std@v6.4.0/option/mod.ts";
