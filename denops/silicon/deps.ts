@@ -1,8 +1,8 @@
-export * from "https://deno.land/x/denops_std@v6.4.0/mod.ts";
-export * from "https://deno.land/x/unknownutil@v3.18.0/mod.ts";
-export * as batch from "https://deno.land/x/denops_std@v6.4.0/batch/mod.ts";
-export * as fn from "https://deno.land/x/denops_std@v6.4.0/function/mod.ts";
-export * as opts from "https://deno.land/x/denops_std@v6.4.0/option/mod.ts";
-export * as vars from "https://deno.land/x/denops_std@v6.4.0/variable/mod.ts";
+export * from "https://deno.land/x/denops_std@v6.5.0/mod.ts";
+export * from "https://deno.land/x/unknownutil@v3.18.1/mod.ts";
+export * as batch from "https://deno.land/x/denops_std@v6.5.0/batch/mod.ts";
+export * as fn from "https://deno.land/x/denops_std@v6.5.0/function/mod.ts";
+export * as opts from "https://deno.land/x/denops_std@v6.5.0/option/mod.ts";
+export * as vars from "https://deno.land/x/denops_std@v6.5.0/variable/mod.ts";
 export * as clippy from "https://deno.land/x/clippy@v1.0.0/mod.ts";
 export * as silicon from "https://deno.land/x/silicon@v1.0.0/mod.ts";
